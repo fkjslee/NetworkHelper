@@ -24,12 +24,13 @@ class Server:
             conn, addr = self.sock.accept()
             print('Connect to %s. Start to receive message...' % str(addr))
             try:
-                client_msg = conn.recv(1024).decode('utf-8')
-                print('server received msg: %s' % client_msg)
-                returnMsg = self.process_msg_func(client_msg)
-                conn.send(returnMsg.encode('utf-8'))
-                if client_msg == 'shutdown':
-                    break
+                while True:
+                    client_msg = conn.recv(1024).decode('utf-8')
+                    print('server received msg: %s' % client_msg)
+                    returnMsg = self.process_msg_func(client_msg)
+                    conn.send(returnMsg.encode('utf-8'))
+                    if client_msg == 'shutdown':
+                        break
             except ConnectionError as conn_error:
                 print('Disconnect to %s' % str(addr))
                 conn.close()
