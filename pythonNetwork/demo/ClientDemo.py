@@ -1,3 +1,6 @@
+import sys
+sys.path.append("../")
+
 from network.CustomClient import Client
 
 if __name__ == "__main__":
